@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified">
+
+    <xsd:import schemaLocation="TestataSchema_v11.0.xsd" namespace="http://schema.testata.common.ws.popso.it/v11"/>
+    <xsd:import schemaLocation="TipiTestataSchema_v11.0.xsd"
+                namespace="http://schema.tipi.testata.common.ws.popso.it/v11"/>
+    <xsd:import schemaLocation="EsbTestataSchema_v11.0.xsd" namespace="http://schema.esb.testata.common.ws.popso.it/v11"/>
+    <xsd:import schemaLocation="fault/FaultSchema_v11.0.xsd"
+                namespace="http://schema.fault.testata.common.ws.popso.it/v11"/>
+
+</xsd:schema>

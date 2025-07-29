@@ -1,0 +1,118 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			targetNamespace="http://schema.bicomp.ws.popso.it/v1" 
+			xmlns:tns="http://schema.bicomp.ws.popso.it/v1">
+
+	<xsd:simpleType name="T_Timestamp">
+		<xsd:restriction base="xsd:dateTime">
+			<xsd:pattern value="[^\-][\S]*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_CorrelationKey">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="100" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_BICIdentifier">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}" />
+			<xsd:maxLength value="11" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_Institute">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}" />
+			<xsd:maxLength value="11" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_Service">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="SCT" />
+			<xsd:maxLength value="3" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_Lac">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2" />
+			<xsd:maxLength value="2" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_Status">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="4" />
+			<xsd:maxLength value="4" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_TransactionCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="PMNT" />
+			<xsd:maxLength value="4" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_TransactionCodeFamily">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="IRCT" />
+			<xsd:enumeration value="RCDT" />
+			<xsd:enumeration value="ICDT" />
+			<xsd:enumeration value="RRCT" />
+			<xsd:maxLength value="4" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_MsgId">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="100" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_SettlementDate">
+		<xsd:restriction base="xsd:date" />
+	</xsd:simpleType>
+	<xsd:simpleType name="ActiveAmount">
+		<xsd:restriction base="xsd:decimal">
+			<xsd:fractionDigits value="2" />
+			<xsd:totalDigits value="18" />
+			<xsd:minInclusive value="0" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_Side">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="C" />
+			<xsd:enumeration value="D" />
+			<xsd:maxLength value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RestrictedFINX2Max34Text">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="34" />
+			<xsd:pattern value="[0-9a-zA-Z/\-\?:\(\)\.,'\+ ]{1,34}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="RestrictedFINX2Max35Text">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="35" />
+			<xsd:pattern value="[0-9a-zA-Z/\-\?:\(\)\.,'\+ ]{1,34}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ActiveCurrencyCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[A-Z]{3,3}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="T_ReturnCode">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="8" />
+			<xsd:pattern value="[\S]{1,8}" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="T_ReturnDescription">
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="100" />
+			<xsd:whiteSpace value="collapse" />
+			<xsd:pattern value="\S+.*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+</xsd:schema>

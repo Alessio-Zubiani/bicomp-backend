@@ -1,0 +1,3 @@
+-- Aggiunta nuovo timer
+INSERT INTO "BICOMP"."TIMER" (JOB_ID,JOB_NAME,JOB_GROUP,JOB_STATUS,JOB_CLASS,CRON_EXPRESSION,JOB_DESCRIPTION,INTERFACE_NAME,CRON_JOB,ENABLED,LAST_EXECUTION_STATUS,LAST_START,LAST_STOP) 
+VALUES (TIMER_SEQUENCE.NEXTVAL,'DELETE_NOTIFICATIONS_processor','group_1','SCHEDULED','it.popso.bicomp.quartz.job.DeleteNotificationsProcessorJob','0 0 16 ? * MON-FRI','Job for deleting old notifications',null,'Y','Y','SCHEDULED',null,null);

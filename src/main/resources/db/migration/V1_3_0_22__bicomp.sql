@@ -1,0 +1,2 @@
+-- Aggiunta campo TMS_UPDATED in tabella EVENT
+ALTER TABLE "BICOMP"."EVENT" ADD "TMS_UPDATED" DATE;

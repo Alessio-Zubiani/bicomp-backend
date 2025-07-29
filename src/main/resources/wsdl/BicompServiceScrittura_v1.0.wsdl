@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+					name="BicompServiceScrittura_v1" 
+					targetNamespace="http://scrittura.bicomp.ws.popso.it/v1" 
+					xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+					xmlns:tns="http://scrittura.bicomp.ws.popso.it/v1" 
+					xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+					xmlns:default-schema="http://schema.fault.testata.common.ws.popso.it/v11" 
+					xmlns:bicomp-schema="http://schema.scrittura.bicomp.ws.popso.it/v1">					
+	
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://scrittura.bicomp.ws.popso.it/v1">
+			<xsd:import namespace="http://schema.fault.testata.common.ws.popso.it/v11"
+				schemaLocation="schema/TipiTestata_v11.0/fault/FaultSchema_v11.0.xsd" />
+			<xsd:import namespace="http://schema.scrittura.bicomp.ws.popso.it/v1"
+				schemaLocation="schema/BicompServiceScritturaSchema_v1.0.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	
+	
+	<!-- Fault -->
+	<wsdl:message name="systemFaultMsg">
+		<wsdl:part name="systemFault" element="default-schema:systemFault" />
+	</wsdl:message>
+	<wsdl:message name="inputFaultMsg">
+		<wsdl:part name="inputFault" element="default-schema:inputFault" />
+	</wsdl:message>
+	<wsdl:message name="applicationFaultMsg">
+		<wsdl:part name="applicationFault" element="default-schema:applicationFault" />
+	</wsdl:message>
+	<wsdl:message name="servizioNonDisponibileFaultMsg">
+		<wsdl:part name="servizioNonDisponibileFault" element="default-schema:servizioNonDisponibileFault" />
+	</wsdl:message>
+	<wsdl:message name="datiTestataFaultMsg">
+		<wsdl:part name="datiTestataFault" element="default-schema:datiTestataFault" />
+	</wsdl:message>
+
+
+	<!-- Aggiorna flag elaborato per report TIPS camt.052 messages -->
+	<wsdl:message name="reportTipsUpdateRequestMsg">
+		<wsdl:part element="bicomp-schema:reportTipsUpdateRequest" name="reportTipsUpdateRequest" />
+	</wsdl:message>
+	<wsdl:message name="reportTipsUpdateResponseMsg">
+		<wsdl:part element="bicomp-schema:reportTipsUpdateResponse" name="reportTipsUpdateResponse" />
+	</wsdl:message>
+
+
+	<!-- PortType -->
+	<wsdl:portType name="BicompServiceScritturaPortType_v1">
+		<wsdl:operation name="reportTipsUpdate">
+			<wsdl:input name="reportTipsUpdateRequest" message="tns:reportTipsUpdateRequestMsg" />
+			<wsdl:output name="reportTipsUpdateResponse" message="tns:reportTipsUpdateResponseMsg" />
+			
+			<wsdl:fault name="applicationFault" message="tns:applicationFaultMsg" />
+			<wsdl:fault name="systemFault" message="tns:systemFaultMsg" />
+			<wsdl:fault name="datiTestataFault" message="tns:datiTestataFaultMsg" />
+			<wsdl:fault name="inputFault" message="tns:inputFaultMsg" />
+			<wsdl:fault name="servizioNonDisponibileFault" message="tns:servizioNonDisponibileFaultMsg" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<wsdl:binding name="BicompServiceScritturaBinding_v1" type="tns:BicompServiceScritturaPortType_v1">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="reportTipsUpdate">
+			<soap:operation soapAction="" />
+			<wsdl:input name="reportTipsUpdateRequest">
+				<soap:body parts="reportTipsUpdateRequest" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="reportTipsUpdateResponse">
+				<soap:body parts="reportTipsUpdateResponse" use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="applicationFault">
+				<soap:fault name="applicationFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="systemFault">
+				<soap:fault name="systemFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="datiTestataFault">
+				<soap:fault name="datiTestataFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="inputFault">
+				<soap:fault name="inputFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="servizioNonDisponibileFault">
+				<soap:fault name="servizioNonDisponibileFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+
+	<wsdl:service name="BicompServiceScrittura_v1">
+		<wsdl:documentation>Bicomp service Scrittura</wsdl:documentation>
+		<wsdl:port binding="tns:BicompServiceScritturaBinding_v1" name="BicompServiceScritturaPortType_v1">
+			<soap:address location="http://bicompdev.popso.it/bicomp-backend/BicompService_v1/scrittura/BicompScrittura.ws" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

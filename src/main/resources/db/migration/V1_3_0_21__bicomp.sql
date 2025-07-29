@@ -1,0 +1,2 @@
+-- Aggiunta campo FLAG_VISTO in tabella EVENT
+ALTER TABLE "BICOMP"."EVENT" ADD "FLAG_VISTO" CHAR(1 BYTE);

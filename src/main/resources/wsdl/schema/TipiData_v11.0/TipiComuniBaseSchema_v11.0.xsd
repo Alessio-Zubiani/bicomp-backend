@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+        targetNamespace="http://schema.data.common.ws.popso.it/v11"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://schema.data.common.ws.popso.it/v11"
+        xmlns:tipi-testata="http://schema.tipi.testata.common.ws.popso.it/v11"
+        elementFormDefault="qualified">
+
+    <xsd:import schemaLocation="../TipiTestata_v11.0/TipiTestataSchema_v11.0.xsd"
+                namespace="http://schema.tipi.testata.common.ws.popso.it/v11"/>
+
+    <!-- ================================= Tipi base ====================================== -->
+
+    <xsd:simpleType name="Importo">
+        <xsd:annotation>
+            <xsd:documentation>Decimal di 15 interi di cui 3 decimali.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="3"/>
+            <xsd:totalDigits value="15"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ImportoPositivo">
+        <xsd:annotation>
+            <xsd:documentation>
+                Importo maggiore a 0
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="tns:Importo">
+            <xsd:minExclusive value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ImportoNonNegativo">
+        <xsd:annotation>
+            <xsd:documentation>Importo maggiore o uguale a 0
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="tns:Importo">
+            <xsd:minInclusive value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="ImportoConDivisa">
+        <xsd:annotation>
+            <xsd:documentation>Importo con la divisa esplicitata
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="importo" type="tns:Importo"/>
+            <xsd:element name="divisa" type="tns:Divisa"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="Divisa">
+        <xsd:annotation>
+            <xsd:documentation>Divisa</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:maxLength value="3"/>
+            <xsd:pattern value="[A-Z]{3}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DivisaEUR">
+        <xsd:restriction base="tns:Divisa">
+            <xsd:enumeration value="EUR" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- Paginazione -->
+    <xsd:element name="paginazioneRichiesta" type="tns:PaginazioneRichiesta" nillable="true"/>
+    <xsd:element name="numeroElementiTotali" type="xsd:int"/>
+    <xsd:element name="paginazione" type="tns:PaginazioneRisposta" nillable="true"/>
+
+    <xsd:complexType name="PaginazioneRichiesta">
+        <xsd:annotation>
+            <xsd:documentation>Paginazione
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="numeroPagina" type="tns:NumeroPagina"/>
+            <xsd:element name="numeroElementiPerPagina" type="tns:NumeroElementiPerPaginaInput"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PaginazioneRisposta">
+        <xsd:annotation>
+            <xsd:documentation>Paginazione di Risposta
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="numeroPagina" type="tns:NumeroPagina"/>
+            <xsd:element name="numeroElementiContenutiInPagina" type="tns:NumeroElementiPerPaginaOutput"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="NumeroPagina">
+        <xsd:annotation>
+            <xsd:documentation>Numero Pagina
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:int">
+            <xsd:minInclusive value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="NumeroElementiPerPaginaInput">
+        <xsd:annotation>
+            <xsd:documentation>Numero Elementi in una Pagina
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:int">
+            <xsd:minInclusive value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="NumeroElementiPerPaginaOutput">
+        <xsd:annotation>
+            <xsd:documentation>Numero Elementi in una Pagina
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:int">
+            <xsd:minInclusive value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="NdgBPS">
+        <xsd:sequence>
+            <xsd:element name="tipoNdg" type="tns:TipoClienteBPS"  />
+            <xsd:element name="ndg" type="tipi-testata:CodiceNdg"  />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="TipoClienteBPS">
+        <xsd:annotation>
+            <xsd:documentation>Tipo Cliente (Cliente BPS vs. Non Cliente)
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="tipi-testata:TipoCliente">
+            <xsd:enumeration value="CLIENTE" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="MatricolaOperatore">
+        <xsd:annotation>
+            <xsd:documentation>Codice Operatore / Matricola</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="8"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CodiceUtente">
+        <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="20"/>
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="Esito">
+        <xsd:annotation>
+            <xsd:documentation>Da usare solo se il servizio deve distinguere tra diversi esiti positivi
+                e gestire eventuali warning. Nel caso di un esito negativo restituire un fault
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="codiceEsito" type="tns:CodiceEsito"/>
+            <xsd:element name="warningList" nillable="true" type="tns:WarningList"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="CodiceEsito">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="OK"/>
+            <xsd:enumeration value="WARNING"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="Warning">
+        <xsd:sequence>
+            <xsd:element name="idWarning" type="xsd:token"/>
+            <xsd:element name="descrizione" type="xsd:string" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="WarningList">
+        <xsd:sequence>
+            <xsd:element name="warning" type="tns:Warning" minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

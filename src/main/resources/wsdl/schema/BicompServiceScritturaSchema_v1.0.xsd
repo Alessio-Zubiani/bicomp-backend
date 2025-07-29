@@ -1,0 +1,53 @@
+<xsd:schema targetNamespace="http://schema.scrittura.bicomp.ws.popso.it/v1" 
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://schema.scrittura.bicomp.ws.popso.it/v1" 
+			xmlns:tipi-comuni-testata="http://schema.tipi.testata.common.ws.popso.it/v11" 
+			xmlns:tipi-testata="http://schema.testata.common.ws.popso.it/v11" 
+			xmlns:schema-common="http://schema.bicomp.ws.popso.it/v1" 
+			elementFormDefault="qualified">
+
+
+	<xsd:import namespace="http://schema.testata.common.ws.popso.it/v11"
+		schemaLocation="TipiTestata_v11.0/TestataSchema_v11.0.xsd" />
+	<xsd:import namespace="http://schema.tipi.testata.common.ws.popso.it/v11"
+		schemaLocation="TipiTestata_v11.0/TipiTestataSchema_v11.0.xsd" />
+	<xsd:import namespace="http://schema.bicomp.ws.popso.it/v1"
+		schemaLocation="BicompServiceSchema_v1.0.xsd" />
+	
+	
+	<xsd:element name="reportTipsUpdateRequest" type="tns:reportTipsUpdateRequest" />
+	<xsd:complexType name="reportTipsUpdateRequest">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataInput"/>
+			<xsd:element name="reportTipsUpdateRequestData" type="tns:reportTipsUpdateRequestData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="reportTipsUpdateResponse" type="tns:reportTipsUpdateResponse" />
+	<xsd:complexType name="reportTipsUpdateResponse">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataOutput"/>
+			<xsd:element name="reportTipsUpdateResponseData" type="tns:reportTipsUpdateResponseData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="reportTipsUpdateRequestData">
+		<xsd:sequence>
+			<xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="CreationTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="AccountOwnerBIC" type="schema-common:T_BICIdentifier"/>
+            <xsd:element name="MessageId" type="schema-common:T_MsgId" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="reportTipsUpdateResponseData">
+		<xsd:sequence>
+			<xsd:element name="ResponseTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+            <xsd:element name="MessageId" type="schema-common:T_MsgId"/>
+            <xsd:element name="ReturnCode" type="schema-common:T_ReturnCode"/>
+            <xsd:element name="ReturnDescription" type="schema-common:T_ReturnDescription"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

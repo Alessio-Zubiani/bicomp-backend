@@ -1,0 +1,31 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://schema.lettura.bicomp.ws.popso.it/v1" xmlns:v11="http://schema.testata.common.ws.popso.it/v11" xmlns:v111="http://schema.tipi.testata.common.ws.popso.it/v11">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:saldiCgsReadRequest>
+         <v1:testata>
+            <v11:testataTecnica>
+               <v11:idOperazione>
+                  <v11:codiceApplicazioneChiamante>CONTCONS</v11:codiceApplicazioneChiamante>
+                  <v11:codiceOperazione>COD_OPE</v11:codiceOperazione>
+               </v11:idOperazione>
+               <v11:idConversazione>ID_CONV</v11:idConversazione>
+            </v11:testataTecnica>
+            <v11:testataDiContesto>
+               <v11:codiceApplicazione>CONTCONS</v11:codiceApplicazione>
+               <v11:codiceCanale>ITR</v11:codiceCanale>
+               <v11:codiceIstituto>05696</v11:codiceIstituto>
+               <v11:codiceFilialeContabile>1</v11:codiceFilialeContabile>
+               <v11:codiceDipendenza>1</v11:codiceDipendenza>
+               <v11:identificazioneSoggetti>
+                  </v11:identificazioneSoggetti>
+            </v11:testataDiContesto>
+         </v1:testata>
+         <v1:saldiCgsReadRequestData>
+            <v1:CorrelationKey>123abc</v1:CorrelationKey>
+            <v1:CreationTimestamp>2023-12-05T00:00:00.000+01:00</v1:CreationTimestamp>
+            <v1:AccountOwnerBIC>POSOIT22XXX</v1:AccountOwnerBIC>
+            <v1:SettlementDate></v1:SettlementDate>
+         </v1:saldiCgsReadRequestData>
+      </v1:saldiCgsReadRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

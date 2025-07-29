@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://schema.esb.testata.common.ws.popso.it/v11"
+	elementFormDefault="qualified"
+	xmlns:tns="http://schema.esb.testata.common.ws.popso.it/v11"
+	xmlns:tipi-testata="http://schema.tipi.testata.common.ws.popso.it/v11"
+	xmlns:testata="http://schema.testata.common.ws.popso.it/v11">
+
+	<xsd:import schemaLocation="TipiTestataSchema_v11.0.xsd" namespace="http://schema.tipi.testata.common.ws.popso.it/v11"/>
+	<xsd:import schemaLocation="TestataSchema_v11.0.xsd" namespace="http://schema.testata.common.ws.popso.it/v11"/>
+
+	<xsd:simpleType name="CodiceOperazioneBPEL">
+		<xsd:restriction base="tipi-testata:StringaNonVuota">
+			<xsd:maxLength value="15"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="IdOperazioneDBPEL">
+		<xsd:sequence>
+			<xsd:element name="codiceApplicazioneChiamante" type="tipi-testata:CodiceApplicazione"  />
+			<xsd:element name="codiceOperazione" type="tns:CodiceOperazioneBPEL"  />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataInputDBPEL">
+		<xsd:sequence>
+			<xsd:element name="testataTecnica" type="tns:TestataTecnicaDBPEL" />
+			<xsd:element name="testataDiContesto" type="testata:TestataDiContesto" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataTecnicaDBPEL">
+		<xsd:sequence>
+			<xsd:element name="idOperazione" type="tns:IdOperazioneDBPEL" />
+			<xsd:element name="idConversazione" type="tipi-testata:StringaNonVuota" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

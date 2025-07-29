@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://schema.tipi.testata.common.ws.popso.it/v11"
+            xmlns:tns="http://schema.tipi.testata.common.ws.popso.it/v11"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <!-- ================================= Tipi testata ====================================== -->
+
+    <xsd:simpleType name="CodiceCanale">
+        <xsd:annotation>
+            <xsd:documentation>Codice di tre lettere identificativo del Canale:
+                &lt;p&gt; Nuovo&amp;nbsp;Sportello - NSP: servizi fruiti delle attività del nuovo sportello, dalla gestione della cassa e dalla filiale&lt;/p&gt;
+                &lt;p&gt; FrontEnd Commerciale - FEC: servizi a supporto delle attività dei promotori commerciali e della gestione dei contratti in stipula
+                &lt;/p&gt;
+                &lt;p&gt; Internet - ITN: servizi fruiti esternamente alla banca attraverso tecnologie internet tradizionali dai clienti (es: scrigno)
+                &lt;/p&gt;
+                &lt;p&gt; ATM: servizi fruiti attraverso totem ATM
+                &lt;/p&gt;
+                &lt;p&gt; POS: servizi a supporto della gestione dei terminali POS (virtuali o fisici) e della contabilità delle operazioni
+                &lt;/p&gt;
+                &lt;p&gt; Banca telefonica - IVR: servizi a supporto del canale telefonico per la gestione delle attività del contact center quali il phone banking, l'help desk e l'attività commerciale
+                &lt;/p&gt;
+                &lt;p&gt; Mobile - MBN: servizi fruiti mediante dispositivi mobile (cellulari, smartphone, tablet)
+                &lt;/p&gt;
+                &lt;p&gt; Corporate banking - CBK: servizi a supporto del Corporate banking interbancario, della gestione dei nodi di accesso, dell'elaborazione dei flussi provenienti e destinati alla rete CBI e lo scambio dei servizi sulla rete (Scrigno azienda, Innovation Banking) &lt;/p&gt;
+                &lt;p&gt; Self Banking - SBK: Self banking
+                &lt;/p&gt;
+                &lt;p&gt; Interbancario - IBR: servizi fruiti in integrazioni con altre banche o con sistemi istituzionali interbancari &lt;/p&gt;
+                &lt;p&gt; Api per Clienti - APC: API cliente (es. Università di Trento) &lt;/p&gt;
+                &lt;p&gt; Api per Terze Parti - APT: API terze parti (per gestionali e PSD2) &lt;/p&gt;
+                &lt;p&gt; Intranet - ITR:servizi fruiti internamente alla banca, quindi tendenzialmente ai dipendenti (es: cristallo, emulatore 3270)
+                &lt;/p&gt;
+                &lt;p&gt; Canale di test - TST: utilizzato solo da sonde di test &lt;/p&gt;
+                &lt;p&gt; Internet Prospect - IPR: servizi frutiti da canale internet dai prospect (non clienti)  &lt;/p&gt;
+                &lt;p&gt; Batch - BTC: Operatività eseguita in modalità automatica non riconducibile ad un interazione diretta del cliente con la banca. Esempi: bolli, competenze, sdd… &lt;/p&gt;
+                &amp;nbsp; &lt;br/&gt;
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:NMTOKEN">
+            <xsd:enumeration value="NSP"/>
+            <xsd:enumeration value="FEC"/>
+            <xsd:enumeration value="ITN"/>
+            <xsd:enumeration value="ATM"/>
+            <xsd:enumeration value="POS"/>
+            <xsd:enumeration value="IVR"/>
+            <xsd:enumeration value="MBN"/>
+            <xsd:enumeration value="CBK"/>
+            <xsd:enumeration value="SBK"/>
+            <xsd:enumeration value="IBR"/>
+            <xsd:enumeration value="APC"/>
+            <xsd:enumeration value="APT"/>
+            <xsd:enumeration value="ITR"/>
+            <xsd:enumeration value="TST"/>
+            <xsd:enumeration value="IPR"/>
+            <xsd:enumeration value="BTC"/>
+            <xsd:enumeration value="PAR"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CodiceApplicazione">
+        <xsd:annotation>
+            <xsd:documentation>Codice Identificativo Applicazione</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:maxLength value="8"/>
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CodiceOperazione">
+        <xsd:annotation>
+            <xsd:documentation>Codice identificativo univoco di un'operazione (generato dall'applicazione)
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:maxLength value="20"/>
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="StringaNonVuota">
+        <xsd:annotation>
+            <xsd:documentation>Stringa Non Vuota</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:minLength value="1"/>
+            <xsd:pattern value="[^ ].*"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CodiceFiliale">
+        <xsd:annotation>
+            <xsd:documentation>Codice numerico identificativo della filiale</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:pattern value="[0-9]{1,5}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="Ndg">
+        <xsd:sequence>
+            <xsd:element name="tipoNdg" type="tns:TipoCliente"/>
+            <xsd:element name="codiceNdg" type="tns:CodiceNdg"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="CodiceNdg">
+        <xsd:annotation>
+            <xsd:documentation>Numero Direzione Generale (Identificativo del Cliente ad uso interno bancario)
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:pattern value="[0-9]{1,12}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TipoCliente">
+        <xsd:annotation>
+            <xsd:documentation>Tipo Cliente (Cliente vs. Non_Cliente (Prospect e Occasionale))</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:NMTOKEN">
+            <xsd:enumeration value="CLIENTE"/>
+            <xsd:enumeration value="NON_CLIENTE_PROSPECT"/>
+            <xsd:enumeration value="NON_CLIENTE_OCCASIONALE"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="Utente">
+        <xsd:sequence>
+            <xsd:element name="tipoUtente" type="tns:TipoUtente" />
+            <xsd:element name="identificativoUtente" type="tns:IdUtente" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="TipoUtente">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="Scrigno" />
+            <xsd:enumeration value="Intranet" />
+            <xsd:enumeration value="Prospect" />
+            <xsd:enumeration value="ATM" />
+            <xsd:enumeration value="CassaPrevidenza" />
+            <xsd:enumeration value="TerzaParte" />
+            <xsd:enumeration value="Altro" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IdUtente">
+        <xsd:annotation>
+            <xsd:documentation>Identificativo dell'utente</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:maxLength value="40"/>
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CodiceAbi">
+        <xsd:annotation>
+            <xsd:documentation>Codice ABI</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:pattern value="[0-9]{5}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

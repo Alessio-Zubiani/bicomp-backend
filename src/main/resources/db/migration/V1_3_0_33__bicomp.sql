@@ -1,0 +1,3 @@
+-- Aggiunta colonne a tabella RT1_BULK
+ALTER TABLE "BICOMP"."RT1_BULK"
+ADD REPORT_NAME VARCHAR2(50 CHAR);

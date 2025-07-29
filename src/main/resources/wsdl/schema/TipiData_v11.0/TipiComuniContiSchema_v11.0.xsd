@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+        targetNamespace="http://schema.data.common.ws.popso.it/v11"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://schema.data.common.ws.popso.it/v11"
+        xmlns:tipi-testata="http://schema.tipi.testata.common.ws.popso.it/v11"
+        elementFormDefault="qualified">
+
+    <xsd:import schemaLocation="../TipiTestata_v11.0/TipiTestataSchema_v11.0.xsd"
+                namespace="http://schema.tipi.testata.common.ws.popso.it/v11"/>
+    <xsd:include schemaLocation="TipiComuniBaseSchema_v11.0.xsd"/>
+
+    <xsd:simpleType name="Iban">
+        <xsd:annotation>
+            <xsd:documentation>Codice IBAN generico</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:maxLength value="34"/>
+            <xsd:minLength value="15"/>
+            <xsd:pattern value="[A-Z]{2}[0-9]{2}[a-zA-Z0-9]{1,30}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IbanItalia">
+        <xsd:annotation>
+            <xsd:documentation>Codice IBAN Italia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:length value="27"/>
+            <xsd:pattern value="[A-Z]{2}[0-9]{2}[A-Z]{1}[0-9]{5}[0-9]{5}[a-zA-Z0-9]{12}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IbanCartaConto">
+        <xsd:annotation>
+            <xsd:documentation>Codice IBAN CartaConto</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:length value="27"/>
+            <xsd:pattern value="[A-Z]{2}[0-9]{2}[A-Z]{1}[0-9]{5}[0-9]{5}CC[a-zA-Z0-9]{10}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Cin">
+        <xsd:annotation>
+            <xsd:documentation>Codice Cin</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:pattern value="[A-Z]{1}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CinConto">
+        <xsd:annotation>
+            <xsd:documentation>Codice Cin di un conto BPS</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:pattern value="[0-9]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Cab">
+        <xsd:annotation>
+            <xsd:documentation>Codice CAB (Codice Avviamento Bancario)
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:length value="5"/>
+            <xsd:pattern value="[0-9]{5}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="Bban">
+        <xsd:annotation>
+            <xsd:documentation>Codice BBAN Generico</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:maxLength value="30"/>
+            <xsd:minLength value="13"/>
+            <xsd:pattern value="[a-zA-Z0-9]{1,30}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="BbanItalia">
+        <xsd:annotation>
+            <xsd:documentation>Codice BBAN Italia</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="cin" type="tns:Cin"/>
+            <xsd:element name="cab" type="tns:Cab"/>
+            <xsd:element name="abi" type="tipi-testata:CodiceAbi"/>
+            <xsd:element name="numeroConto" type="tns:NumeroConto"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ContoCorrenteOrdinario">
+        <xsd:sequence>
+            <xsd:element name="codiceFiliale" type="tipi-testata:CodiceFiliale"/>
+            <xsd:element name="numeroConto" type="tns:NumeroConto"/>
+            <xsd:element name="divisa" type="tns:Divisa"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="CartaConto">
+        <xsd:sequence>
+            <xsd:element name="iban" type="tns:IbanCartaConto"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DatiConto">
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:element name="identificativiConto" type="tns:ContoCorrenteOrdinario"/>
+                <xsd:element name="iban" type="tns:Iban"/>
+            </xsd:choice>
+            <xsd:element name="intestatario" type="tipi-testata:StringaNonVuota" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DatiContoCorrenteConIntestatarioECin">
+        <xsd:sequence>
+            <xsd:element name="identificativiConto" type="tns:ContoCorrenteOrdinario"/>
+            <xsd:element name="intestatario" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="cin" type="tns:CinConto" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DatiCartaContoConIntestatario">
+        <xsd:complexContent>
+            <xsd:extension base="tns:CartaConto">
+                <xsd:sequence>
+                    <xsd:element name="intestatario" type="tipi-testata:StringaNonVuota"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:simpleType name="NumeroConto">
+        <xsd:annotation>
+            <xsd:documentation>Numero Conto</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:token">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="12"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

@@ -1,0 +1,25 @@
+<jaxb:bindings version="3.0"
+    xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xjc="https://jakarta.ee/xml/ns/jaxb/xjc"
+    jaxb:extensionBindingPrefixes="xjc">
+	
+    <jaxb:bindings
+        schemaLocation="../xsd/TIPS/TIPS_camt.052.001.06.xsd"
+        node="/xs:schema">
+
+        <jaxb:schemaBindings>
+            <jaxb:package name="it.popso.bicomp.xjc.tips.camt052" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings
+        schemaLocation="../xsd/TIPS/TIPS_camt.053.001.06.xsd"
+        node="/xs:schema">
+
+        <jaxb:schemaBindings>
+            <jaxb:package name="it.popso.bicomp.xjc.tips.camt053" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+</jaxb:bindings>

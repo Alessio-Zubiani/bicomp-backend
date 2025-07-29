@@ -1,0 +1,2 @@
+-- Modifica nome colonna tabella TIMER
+ALTER TABLE "BICOMP"."TIMER" RENAME COLUMN "CLASS_NAME" TO "JOB_CLASS";

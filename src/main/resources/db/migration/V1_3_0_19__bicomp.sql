@@ -1,0 +1,3 @@
+-- Inserimento nuovo timer
+INSERT INTO "BICOMP"."TIMER" (JOB_ID,JOB_NAME,JOB_GROUP,JOB_STATUS,LAST_EXECUTION_STATUS,LAST_START,LAST_STOP,JOB_CLASS,CRON_EXPRESSION,DESCRIPTION,INTERFACE_NAME,CRON_JOB,ENABLED) 
+VALUES (TIMER_SEQUENCE.NEXTVAL,'EVENT_collector','group_1','STOPPED',null,null,null,'it.popso.bicomp.shared.quartz.job.EventBean','0 0/1 * * * ?','Job for retrieving event and sending it to frontend',null,'Y','Y');

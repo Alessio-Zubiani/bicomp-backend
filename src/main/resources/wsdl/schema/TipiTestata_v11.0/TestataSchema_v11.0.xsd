@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://schema.testata.common.ws.popso.it/v11"
+	elementFormDefault="qualified"
+	xmlns:tns="http://schema.testata.common.ws.popso.it/v11"
+	xmlns:tipi-testata="http://schema.tipi.testata.common.ws.popso.it/v11">
+
+	<xsd:import schemaLocation="TipiTestataSchema_v11.0.xsd" namespace="http://schema.tipi.testata.common.ws.popso.it/v11"/>
+
+	<xsd:complexType name="TestataInput">
+		<xsd:sequence>
+			<xsd:element name="testataTecnica" type="tns:TestataTecnicaInput"/>
+			<xsd:element name="testataDiContesto" type="tns:TestataDiContesto"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataInputD">
+		<xsd:sequence>
+			<xsd:element name="testataTecnica" type="tns:TestataTecnicaInputD"/>
+			<xsd:element name="testataDiContesto" type="tns:TestataDiContesto"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataTecnicaInput">
+		<xsd:sequence>
+			<xsd:element name="idOperazione" type="tns:IdOperazione"/>
+			<xsd:element name="idConversazione" type="tipi-testata:StringaNonVuota"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataTecnicaInputD">
+		<xsd:sequence>
+			<xsd:element name="idOperazione" type="tns:IdOperazioneD"/>
+			<xsd:element name="idConversazione" type="tipi-testata:StringaNonVuota"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataDiContesto">
+		<xsd:annotation>
+			<xsd:documentation>Racchiude l'insieme dei campi utilizzati per identificare le parti coinvolte nella comunicazione di canale:
+				&lt;p&gt; codiceApplicazione: codice identificativo dell'applicazione di canale che ha originato la comunicazione &lt;/p&gt;
+				&lt;p&gt; codiceCanale: codice del canale chiamante &lt;/p&gt;
+				&lt;p&gt; codiceIstituto: codice ABI che identifica l'stituto&lt;/p&gt;
+				&lt;p&gt;	codiceFilialeContabile: codice filiale o codice ufficio&lt;/p&gt;
+				&lt;p&gt; codiceDipendenza: codice Dipendenza (da nomenclatura di Cristallo) che identifica univocamente una filiale fisica (ad una filialeContabile possono essere associate, in forma di dipendenza, più filiali fisiche) &lt;/p&gt;
+				&lt;p&gt; identificazioneSoggetti: identificazione dei soggetti coinvolti nella comunicazione &lt;/p&gt;
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="codiceApplicazione" type="tipi-testata:CodiceApplicazione"/>
+			<xsd:element name="codiceCanale" type="tipi-testata:CodiceCanale"/>
+			<xsd:element name="codiceIstituto" type="tipi-testata:CodiceAbi"/>
+			<xsd:element name="codiceFilialeContabile" type="tipi-testata:CodiceFiliale" nillable="true"/>
+			<xsd:element name="codiceDipendenza" type="tipi-testata:CodiceFiliale" nillable="true"/>
+			<xsd:element name="identificazioneSoggetti" type="tns:IdentificazioneSoggetti"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IdentificazioneSoggetti">
+		<xsd:annotation>
+			<xsd:documentation>Informazioni che riguardano l'identificazione dei soggetti coinvolti nell'operazione:
+				&lt;p&gt; ndg: ndg del soggetto interessato dall'operazione (es. intestatario del rapporto) &lt;/p&gt;
+				&lt;p&gt; utente: identificativo del soggetto che sta operando sull'applicativo che ha generato la richiesta (es. utente scrigno o operatore filiale) &lt;/p&gt;
+				&lt;p&gt; esecutore: ndg del soggetto che ha effettivamente ordinato l'operazione (Potrebbe differire dal campo ndg se si considerano le deleghe) &lt;/p&gt;
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ndg" type="tipi-testata:Ndg" minOccurs="0"/>
+			<xsd:element name="utente" type="tipi-testata:Utente" minOccurs="0"/>
+			<xsd:element name="esecutore" type="tipi-testata:Ndg" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataOutputD">
+		<xsd:sequence>
+			<xsd:element name="testataTecnica" type="tns:TestataTecnicaOutputD"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataOutput">
+		<xsd:sequence>
+			<xsd:element name="testataTecnica" type="tns:TestataTecnicaOutput"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataTecnicaOutputD">
+		<xsd:sequence>
+			<xsd:element name="idOperazioneRichiesta" type="tns:IdOperazioneD"/>
+			<xsd:element name="idConversazione" type="tipi-testata:StringaNonVuota"/>
+			<xsd:element name="codiceOperazioneRisposta" type="tipi-testata:CodiceOperazione"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TestataTecnicaOutput">
+		<xsd:sequence>
+			<xsd:element name="idOperazioneRichiesta" type="tns:IdOperazione"/>
+			<xsd:element name="idConversazione" type="tipi-testata:StringaNonVuota"/>
+			<xsd:element name="codiceOperazioneRisposta" type="tipi-testata:CodiceOperazione" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IdOperazione">
+		<xsd:sequence>
+			<xsd:element name="codiceApplicazioneChiamante" type="tipi-testata:CodiceApplicazione"/>
+			<xsd:element name="codiceOperazione" type="tipi-testata:CodiceOperazione" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="IdOperazioneD">
+		<xsd:sequence>
+			<xsd:element name="codiceApplicazioneChiamante" type="tipi-testata:CodiceApplicazione"/>
+			<xsd:element name="codiceOperazione" type="tipi-testata:CodiceOperazione"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

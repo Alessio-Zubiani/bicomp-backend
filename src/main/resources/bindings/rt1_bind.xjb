@@ -1,0 +1,25 @@
+<jaxb:bindings version="3.0"
+    xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xjc="https://jakarta.ee/xml/ns/jaxb/xjc"
+    jaxb:extensionBindingPrefixes="xjc">
+
+    <jaxb:bindings
+        schemaLocation="../xsd/RT1/RT1_pacs.002.001.10IPS.xsd"
+        node="/xs:schema">
+
+        <jaxb:schemaBindings>
+            <jaxb:package name="it.popso.bicomp.xjc.rt1.pacs002" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    
+    <jaxb:bindings
+        schemaLocation="../xsd/RT1/RT1_SCTInstRsfBlkCredTrf.xsd"
+        node="/xs:schema">
+
+        <jaxb:schemaBindings>
+        	<jaxb:package name="it.popso.bicomp.xjc.rt1.bulk" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+</jaxb:bindings>

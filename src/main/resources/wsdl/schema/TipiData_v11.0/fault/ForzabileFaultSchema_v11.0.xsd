@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://schema.forzabilefault.data.common.ws.popso.it/v11"
+        elementFormDefault="qualified"
+        xmlns:fault-testata="http://schema.fault.testata.common.ws.popso.it/v11"
+        xmlns:tns="http://schema.forzabilefault.data.common.ws.popso.it/v11"
+        xmlns:tipi-comuni="http://schema.data.common.ws.popso.it/v11"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tipi-testata="http://schema.tipi.testata.common.ws.popso.it/v11">
+
+
+    <import schemaLocation="../../TipiTestata_v11.0/TipiTestataSchema_v11.0.xsd" namespace="http://schema.tipi.testata.common.ws.popso.it/v11"/>
+    <import schemaLocation="../TipiComuniSchema_v11.0.xsd" namespace="http://schema.data.common.ws.popso.it/v11"/>
+    <import schemaLocation="../../TipiTestata_v11.0/fault/FaultSchema_v11.0.xsd" namespace="http://schema.fault.testata.common.ws.popso.it/v11"/>
+
+
+    <xsd:complexType name="ForzabileApplicationFault">
+        <xsd:complexContent>
+            <xsd:extension base="fault-testata:ApplicationFault">
+                <xsd:sequence>
+                    <xsd:element name="forzatura" type="tns:Forzatura" nillable="true"/>
+                    <xsd:element name="listaDettagliFault" type="tns:ListaDettagliFault" nillable="true"/>
+                    <xsd:element name="listaBlocchiRapporto" type="tipi-comuni:ListaBlocchiRapporto" nillable="true"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <!-- Tipi per ForzabileFault -->
+    <xsd:complexType name="Forzatura">
+        <xsd:sequence>
+            <xsd:element name="idOperazione" type="tipi-testata:StringaNonVuota"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListaDettagliFault">
+        <xsd:sequence>
+            <xsd:element name="dettagliFault" type="tns:DettagliFault" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DettagliFault">
+        <xsd:sequence>
+            <xsd:element name="tipoMessaggio">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="OPENBANK"/>
+                        <xsd:enumeration value="PARTITARIO"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="id" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="flagBlocco">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="BLOCCANTE"/>
+                        <xsd:enumeration value="FORZABILE"/>
+                        <xsd:enumeration value="SEGNALAZIONE"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name="descrizione" type="tipi-testata:StringaNonVuota"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:element name="forzabileApplicationFault" type="tns:ForzabileApplicationFault"/>
+    <xsd:element name="forzabilita" type="tns:Forzatura" nillable="true"/>
+
+
+</schema>

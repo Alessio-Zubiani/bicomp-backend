@@ -1,0 +1,3 @@
+-- Rimuovo colonna temporanea SIDE_1
+ALTER TABLE "BICOMP"."RT1_BULK_PAYMENT"
+DROP COLUMN SIDE_1;

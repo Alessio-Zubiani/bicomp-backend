@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://schema.data.common.ws.popso.it/v11"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://schema.data.common.ws.popso.it/v11"
+			xmlns:tipi-testata="http://schema.tipi.testata.common.ws.popso.it/v11"
+			elementFormDefault="qualified">
+
+
+	<xsd:import schemaLocation="../TipiTestata_v11.0/TipiTestataSchema_v11.0.xsd" namespace="http://schema.tipi.testata.common.ws.popso.it/v11"/>
+	<xsd:include schemaLocation="TipiComuniBaseSchema_v11.0.xsd" />
+	<xsd:include schemaLocation="TipiComuniContiSchema_v11.0.xsd" />
+	<xsd:include schemaLocation="TipiSportelloSchema_v11.0.xsd" />
+
+	<xsd:complexType name="StatoEntita">
+		<xsd:choice>
+			<xsd:element name="pagato" type="tns:Pagato"/>
+			<xsd:element name="nonPagato">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:enumeration value="NON_PAGATO"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="annullato">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:enumeration value="ANNULLATO"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="inCorso">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:enumeration value="IN_CORSO"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="stornato">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:enumeration value="STORNATO"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="inErrore">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:token">
+						<xsd:enumeration value="IN_ERRORE"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="Pagato">
+		<xsd:choice>
+			<xsd:element name="identificativoPagamento" type="tipi-testata:StringaNonVuota"/>
+			<xsd:element name="dataPagamento" type="xsd:date"/>
+			<xsd:element name="modalitaPagamento" type="tns:ModalitaPagamento"/>
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:simpleType name="StatoPagamento">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="PAGATO"/>
+			<xsd:enumeration value="ANNULLATO"/>
+			<xsd:enumeration value="IN_CORSO"/>
+			<xsd:enumeration value="STORNATO"/>
+			<xsd:enumeration value="IN_ERRORE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="Pagamento">
+		<xsd:annotation>
+			<xsd:documentation>Tipo generico di pagamento</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="identificativoPagamento" type="xsd:string" />
+			<xsd:element name="data" type="xsd:date" />
+			<xsd:element name="importo" type="tns:Importo" />
+			<xsd:element name="modalita" type="tns:ModalitaPagamento" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ModalitaPagamento">
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="modalitaPagamentoDiretto" type="tns:ModalitaPagamentoDiretto" />
+				<xsd:element name="modalitaPagamentoIndiretto" type="tns:ModalitaPagamentoIncassoIndiretto" />
+				<xsd:element name="modalitaPagamentoIndirettoATM" type="tns:ModalitaPagamentoIncassoIndirettoATM" />
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="ModalitaPagamentoDiretto">
+		<xsd:annotation>
+			<xsd:documentation>Modalita di pagamento diretto</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="CONTO_CORRENTE"/>
+			<xsd:enumeration value="CARTA_CONTO"/>
+			<xsd:enumeration value="CASSA"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ModalitaPagamentoIncassoIndiretto">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="MASTERCARD"/>
+			<xsd:enumeration value="MAESTRO"/>
+			<xsd:enumeration value="AMEX"/>
+			<xsd:enumeration value="DINERS"/>
+			<xsd:enumeration value="VISA"/>
+			<xsd:enumeration value="PAYPAL"/>
+			<xsd:enumeration value="MYBANK"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ModalitaPagamentoIncassoIndirettoATM">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="BANCOMAT" />
+			<xsd:enumeration value="BPS_PREPAGATA" />
+			<xsd:enumeration value="PREPAGATA_CHIARA" />
+			<xsd:enumeration value="CARTA_CONTO" />
+			<xsd:enumeration value="BANCOMAT_ALTRA_BANCA" />
+			<xsd:enumeration value="CARTA_INTERNAZIONALE_ALTRA_BANCA" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="CoordinatePagamento">
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="coordinatePagamentoConto" type="tns:CoordinatePagamentoConto" />
+				<xsd:element name="coordinatePagamentoCassa" type="tns:CoordinatePagamentoCassa" />
+				<xsd:element name="coordinatePagamentoCartaConto" type="tns:CoordinatePagamentoCartaConto" />
+				<xsd:element name="coordinatePagamentoIncassoIndiretto" type="tns:CoordinatePagamentoIncassoIndiretto" />
+				<xsd:element name="coordinatePagamentoIncassoIndirettoATM" type="tns:CoordinatePagamentoIncassoIndirettoATM" />
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoConto">
+		<xsd:complexContent>
+			<xsd:extension base="tns:ContoCorrenteOrdinario">
+				<xsd:sequence>
+					<xsd:element name="intestazione" type="tipi-testata:StringaNonVuota"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoCassa">
+		<xsd:sequence>
+			<xsd:element name="codiceCassa" type="tipi-testata:StringaNonVuota"/>
+		</xsd:sequence>
+
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoCartaConto">
+		<xsd:sequence>
+			<xsd:element name="iban" type="tns:IbanCartaConto"/>
+			<xsd:element name="intestazione" type="tipi-testata:StringaNonVuota"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoIncassoIndiretto">
+		<xsd:sequence>
+			<xsd:element name="modalitaPagamento" type="tns:ModalitaPagamentoIncassoIndiretto"/>
+			<xsd:element name="identificativoTransazione" type="tipi-testata:StringaNonVuota"/>
+			<xsd:element name="dataPagamento" type="xsd:dateTime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoIncassoIndirettoATM">
+		<xsd:sequence>
+			<xsd:element name="modalitaPagamento" type="tns:ModalitaPagamentoIncassoIndirettoATM" nillable="true"/>
+			<xsd:element name="cartaIncassoIndirettoATM" type="tns:DatiCartaIncassoIndirettoATM"  nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DatiCartaIncassoIndirettoATM">
+		<xsd:sequence>
+			<xsd:element name="codiceAbi" type="tipi-testata:CodiceAbi" nillable="true"/>
+			<xsd:element name="pan" type="tipi-testata:StringaNonVuota"/>
+			<xsd:element name="intestazione" type="tipi-testata:StringaNonVuota" nillable="true"/>
+			<xsd:element name="circuitoInternazionale" type="xsd:boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoContoInput">
+		<xsd:sequence>
+			<xsd:element name="contoAddebito"  type="tns:DatiContoCorrenteConIntestatarioECin"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoContoOutput">
+		<xsd:sequence>
+			<xsd:element name="contoAddebito"   type="tns:DatiContoCorrenteConIntestatarioECin"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoIncassoIndirettoInput">
+		<xsd:sequence>
+			<xsd:element name="modalitaPagamento"
+						 type="tns:ModalitaPagamentoIncassoIndiretto"/>
+			<xsd:element name="identificativoTransazione" type="tipi-testata:StringaNonVuota"/>
+			<xsd:element name="dataPagamento" type="xsd:dateTime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoCartaContoInput">
+		<xsd:sequence>
+			<xsd:element name="cartaContoAddebito"  type="tns:DatiCartaContoConIntestatario"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CoordinatePagamentoCassaInput">
+		<xsd:sequence>
+			<xsd:element name="codiceCassa" type="tipi-testata:StringaNonVuota" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DatiSportelloPagamentoPerCassa">
+		<xsd:complexContent>
+			<xsd:extension base="tns:DatiSportelloPagamento">
+				<xsd:sequence>
+					<xsd:element name="contanti" type="tns:Contanti" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Contanti">
+		<xsd:choice>
+			<xsd:element name="contantiReali" type="tns:ContantiReali" />
+			<xsd:element name="contantiVirtuali" type="tns:ContantiVirtuali" />
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:complexType name="ContantiVirtuali">
+		<xsd:sequence>
+			<xsd:element name="totale" type="tns:ImportoConDivisa" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ContantiReali">
+		<xsd:sequence>
+			<xsd:element name="totale" type="tns:ImportoConDivisa" />
+			<xsd:element name="listaDettagliContantiReali" type="tns:ListaDettagliContantiReali" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ListaDettagliContantiReali">
+		<xsd:sequence>
+			<xsd:element name="dettaglioContantiReali" type="tns:DettaglioContantiReali" minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DettaglioContantiReali">
+		<xsd:sequence>
+			<xsd:element name="taglio" type="tns:Tagli" />
+			<xsd:element name="numeroPezzi" type="xsd:int" />
+			<xsd:element name="importoTotalePezzi" type="tns:Importo" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="Tagli">
+		<xsd:restriction base="xsd:token">
+			<xsd:enumeration value="MONETA" />
+			<xsd:enumeration value="5" />
+			<xsd:enumeration value="10" />
+			<xsd:enumeration value="20" />
+			<xsd:enumeration value="50" />
+			<xsd:enumeration value="100" />
+			<xsd:enumeration value="200" />
+			<xsd:enumeration value="500" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:complexType name="CoordinatePagamentoCassaOutput">
+		<xsd:sequence>
+			<xsd:element name="codiceCassa" type="tipi-testata:StringaNonVuota" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="DettaglioContabilizzazioneConto">
+		<xsd:sequence>
+			<xsd:element name="dataContabile" type="xsd:date" />
+			<xsd:element name="dettagliContoAddebito" type="tns:DettaglioConto" nillable="true"/>
+			<xsd:element name="movimentiContabili" type="tns:MovimentiContabili" nillable="true"/>
+			<xsd:element name="totalizzatori" type="tns:ListaTotalizzatori"  />
+			<xsd:element name="numeroMovimento" type="tipi-testata:StringaNonVuota" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DettaglioContabilizzazioneContoFault">
+		<xsd:sequence>
+			<xsd:element name="dettagliContoAddebito" type="tns:DettaglioConto" nillable="true"/>
+			<xsd:element name="movimentiContabili" type="tns:ListaMovimentiContabili" nillable="true"/>
+			<xsd:element name="totalizzatori" type="tns:ListaTotalizzatori"  />
+			<xsd:element name="numeroMovimento" type="tipi-testata:StringaNonVuota" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DettaglioContabilizzazioneCassa">
+		<xsd:sequence>
+			<xsd:element name="movimentiContabili" type="tns:MovimentiContabili" nillable="true"/>
+			<xsd:element name="totalizzatori" type="tns:ListaTotalizzatori"  />
+			<xsd:element name="sbilancio" type="tns:Sbilancio"  />
+			<xsd:element name="numeroMovimento" type="tipi-testata:StringaNonVuota" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="DettaglioContabilizzazioneCassaFault">
+		<xsd:sequence>
+			<xsd:element name="movimentiContabili" type="tns:ListaMovimentiContabili" nillable="true"/>
+			<xsd:element name="totalizzatori" type="tns:ListaTotalizzatori"  />
+			<xsd:element name="sbilancio" type="tns:Sbilancio"  />
+			<xsd:element name="numeroMovimento" type="tipi-testata:StringaNonVuota" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TotaleConto">
+		<xsd:sequence>
+			<xsd:element name="importo" type="tns:Importo"/>
+			<xsd:element name="divisa" type="tns:Divisa"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="TotaleCassa">
+		<xsd:sequence>
+			<xsd:element name="importo" type="tns:Importo"/>
+			<xsd:element name="divisa" type="tns:Divisa"/>
+			<xsd:element name="tipoValore" type="tns:TipoValore"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name="TipoValore">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="CONTANTI_REALI"/>
+			<xsd:enumeration value="CONTANTI_VIRTUALI"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="CriterioDiRicerca">
+		<xsd:choice>
+			<xsd:element name="conto" type="tns:CriterioDiRicercaPerConto"/>
+			<xsd:element name="iban" type="tns:CriterioDiRicercaPerIban"/>
+			<xsd:element name="utente" type="tns:CriterioDiRicercaPerUtente"/>
+			<xsd:element name="ndg" type="tns:CriterioDiRicercaPerNdg"/>
+			<xsd:element name="canale" type="tns:CriterioDiRicercaPerCanale"/>
+		</xsd:choice>
+	</xsd:complexType>
+
+	<xsd:complexType name="CriterioDiRicercaPerConto">
+		<xsd:sequence>
+			<xsd:element name="conto" type="tns:ContoCorrenteOrdinario" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CriterioDiRicercaPerIban">
+		<xsd:sequence>
+			<xsd:element name="iban" type="tns:Iban" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CriterioDiRicercaPerUtente">
+		<xsd:sequence>
+			<xsd:element name="utente" type="tipi-testata:Utente" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CriterioDiRicercaPerNdg">
+		<xsd:sequence>
+			<xsd:element name="ndg" type="tipi-testata:Ndg"  />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="CriterioDiRicercaPerCanale">
+		<xsd:sequence>
+			<xsd:element name="canale" type="tipi-testata:CodiceCanale" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="FiltroData">
+		<xsd:sequence>
+			<xsd:element name="dataIniziale"	type="xsd:date" />
+			<xsd:element name="dataFinale"		type="xsd:date" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Entita">
+		<xsd:sequence>
+			<xsd:element name="identificativoEntita" type="tipi-testata:StringaNonVuota" />
+			<xsd:element name="importo"	type="tns:Importo" />
+			<xsd:element name="dataScadenza" type="xsd:date" nillable="true"/>
+			<xsd:element name="descrizioneBeneficiario"	type="tns:Beneficiario" nillable="true"/>
+			<xsd:element name="descrizioneDebitore"	type="tns:Debitore" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Beneficiario">
+		<xsd:sequence>
+			<xsd:element name="descrizione"	type="tipi-testata:StringaNonVuota" />
+			<xsd:element name="indirizzo"	type="tns:Indirizzo" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Debitore">
+		<xsd:sequence>
+			<xsd:element name="descrizione"	type="tipi-testata:StringaNonVuota" />
+			<xsd:element name="indirizzo"	type="tns:Indirizzo" nillable="true" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Dettaglio">
+		<xsd:sequence>
+			<xsd:element name="identificativoEntita" type="tipi-testata:StringaNonVuota"/>
+			<xsd:element name="statoEntita" type="tns:StatoEntita" />
+			<xsd:element name="beneficiario" type="tns:Beneficiario" nillable="true"/>
+			<xsd:element name="debitore"	type="tns:Debitore" />
+			<xsd:element name="statoPagato"	type="tns:Pagato" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="RicercaModalitaPagamento">
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="ente" type="tns:Ente"/>
+				<xsd:element name="chiaveEntita" type="tipi-testata:StringaNonVuota" />
+			</xsd:choice>
+			<xsd:element name="importoNetto" type="tns:Beneficiario" />
+			<xsd:element name="tipologiaProdottoDaPagare"	type="tipi-testata:StringaNonVuota" nillable="true"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="Ente">
+		<xsd:sequence>
+			<xsd:element name="codiceServizio" type="tipi-testata:StringaNonVuota"/>
+			<xsd:element name="codiceSottoServizio" type="tipi-testata:StringaNonVuota" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,43 @@
+<jaxb:bindings version="3.0"
+    xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xjc="https://jakarta.ee/xml/ns/jaxb/xjc"
+    jaxb:extensionBindingPrefixes="xjc">
+
+    <jaxb:bindings
+        schemaLocation="../xsd/CGS/CGS_camt.052.001.10.xsd"
+        node="/xs:schema">
+
+        <jaxb:schemaBindings>
+            <jaxb:package name="it.popso.bicomp.xjc.cgs.camt052" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+    <jaxb:bindings
+        schemaLocation="../xsd/CGS/CGS_camt.053.001.08.xsd"
+        node="/xs:schema">
+
+        <jaxb:schemaBindings>
+            <jaxb:package name="it.popso.bicomp.xjc.cgs.camt053" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    
+    <jaxb:bindings
+        schemaLocation="../xsd/CGS/CGS_camt.054.001.10.xsd"
+        node="/xs:schema">
+
+        <jaxb:schemaBindings>
+        	<jaxb:package name="it.popso.bicomp.xjc.cgs.camt054" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+    
+    <jaxb:bindings
+        schemaLocation="../xsd/CGS/CGS_S2CGSBlk.xsd"
+        node="/xs:schema">
+
+        <jaxb:schemaBindings>
+        	<jaxb:package name="it.popso.bicomp.xjc.cgs.bulk" />
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+
+</jaxb:bindings>

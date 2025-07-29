@@ -1,0 +1,211 @@
+<xsd:schema targetNamespace="http://schema.lettura.bicomp.ws.popso.it/v1" 
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			xmlns:tns="http://schema.lettura.bicomp.ws.popso.it/v1" 
+			xmlns:tipi-comuni-testata="http://schema.tipi.testata.common.ws.popso.it/v11" 
+			xmlns:tipi-testata="http://schema.testata.common.ws.popso.it/v11" 
+			xmlns:schema-common="http://schema.bicomp.ws.popso.it/v1" 
+			elementFormDefault="qualified">
+
+
+	<xsd:import namespace="http://schema.testata.common.ws.popso.it/v11"
+		schemaLocation="TipiTestata_v11.0/TestataSchema_v11.0.xsd" />
+	<xsd:import namespace="http://schema.tipi.testata.common.ws.popso.it/v11"
+		schemaLocation="TipiTestata_v11.0/TipiTestataSchema_v11.0.xsd" />
+	<xsd:import namespace="http://schema.bicomp.ws.popso.it/v1"
+		schemaLocation="BicompServiceSchema_v1.0.xsd" />
+	
+	
+	<xsd:element name="saldiCgsReadRequest" type="tns:SaldiCgsReadRequest" />
+	<xsd:complexType name="SaldiCgsReadRequest">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataInput"/>
+			<xsd:element name="saldiCgsReadRequestData" type="tns:SaldiCgsReadRequestData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="saldiCgsReadResponse" type="tns:SaldiCgsReadResponse" />
+	<xsd:complexType name="SaldiCgsReadResponse">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataOutput"/>
+			<xsd:element name="saldiCgsReadResponseData" type="tns:SaldiCgsReadResponseData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="saldiTipsReadRequest" type="tns:SaldiTipsReadRequest" />
+	<xsd:complexType name="SaldiTipsReadRequest">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataInput"/>
+			<xsd:element name="saldiTipsReadRequestData" type="tns:SaldiTipsReadRequestData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="saldiTipsReadResponse" type="tns:SaldiTipsReadResponse" />
+	<xsd:complexType name="SaldiTipsReadResponse">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataOutput"/>
+			<xsd:element name="saldiTipsReadResponseData" type="tns:SaldiTipsReadResponseData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="ultimoSaldoCgsReadRequest" type="tns:UltimoSaldoCgsReadRequest" />
+	<xsd:complexType name="UltimoSaldoCgsReadRequest">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataInput"/>
+			<xsd:element name="ultimoSaldoCgsReadRequestData" type="tns:UltimoSaldoCgsReadRequestData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="ultimoSaldoCgsReadResponse" type="tns:UltimoSaldoCgsReadResponse" />
+	<xsd:complexType name="UltimoSaldoCgsReadResponse">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataOutput"/>
+			<xsd:element name="ultimoSaldoCgsReadResponseData" type="tns:UltimoSaldoCgsReadResponseData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="ultimoPagamentoTipsReadRequest" type="tns:UltimoPagamentoTipsReadRequest" />
+	<xsd:complexType name="UltimoPagamentoTipsReadRequest">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataInput"/>
+			<xsd:element name="ultimoPagamentoTipsReadRequestData" type="tns:UltimoPagamentoTipsReadRequestData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="ultimoPagamentoTipsReadResponse" type="tns:UltimoPagamentoTipsReadResponse" />
+	<xsd:complexType name="UltimoPagamentoTipsReadResponse">
+		<xsd:sequence>
+			<xsd:element name="testata" type="tipi-testata:TestataOutput"/>
+			<xsd:element name="ultimoPagamentoTipsReadResponseData" type="tns:UltimoPagamentoTipsReadResponseData"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SaldiCgsReadRequestData">
+		<xsd:sequence>
+			<xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="CreationTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="AccountOwnerBIC" type="schema-common:T_BICIdentifier"/>
+            <xsd:element name="SettlementDate" type="schema-common:T_SettlementDate" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SaldiCgsReadResponseData">
+		<xsd:sequence>
+			<xsd:element name="ResponseTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="CgsLac" type="tns:CgsLac" maxOccurs="unbounded"/>
+            <xsd:element name="ReturnCode" type="schema-common:T_ReturnCode"/>
+            <xsd:element name="ReturnDescription" type="schema-common:T_ReturnDescription"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SaldiTipsReadRequestData">
+		<xsd:sequence>
+			<xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="CreationTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="AccountOwnerBIC" type="schema-common:T_BICIdentifier"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="SaldiTipsReadResponseData">
+		<xsd:sequence>
+			<xsd:element name="ResponseTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="TipsReport" type="tns:TipsReport" maxOccurs="unbounded"/>
+            <xsd:element name="ReturnCode" type="schema-common:T_ReturnCode"/>
+            <xsd:element name="ReturnDescription" type="schema-common:T_ReturnDescription"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="UltimoSaldoCgsReadRequestData">
+		<xsd:sequence>
+			<xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="CreationTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="AccountOwnerBIC" type="schema-common:T_BICIdentifier"/>
+            <xsd:element name="SettlementDate" type="schema-common:T_SettlementDate" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="UltimoSaldoCgsReadResponseData">
+		<xsd:sequence>
+			<xsd:element name="ResponseTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="CgsLac" type="tns:CgsLac"/>
+            <xsd:element name="ReturnCode" type="schema-common:T_ReturnCode"/>
+            <xsd:element name="ReturnDescription" type="schema-common:T_ReturnDescription"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="UltimoPagamentoTipsReadRequestData">
+		<xsd:sequence>
+			<xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="CreationTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="AccountOwnerBIC" type="schema-common:T_BICIdentifier"/>
+            <xsd:element name="SettlementDate" type="schema-common:T_SettlementDate" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="UltimoPagamentoTipsReadResponseData">
+		<xsd:sequence>
+			<xsd:element name="ResponseTimestamp" type="schema-common:T_Timestamp"/>
+            <xsd:element name="CorrelationKey" type="schema-common:T_CorrelationKey"/>
+			<xsd:element name="TipsPayment" type="tns:TipsPayment"/>
+            <xsd:element name="ReturnCode" type="schema-common:T_ReturnCode"/>
+            <xsd:element name="ReturnDescription" type="schema-common:T_ReturnDescription"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="CgsLac">
+		<xsd:sequence>
+			<xsd:element name="SendingInstitute" type="schema-common:T_Institute"/>
+			<xsd:element name="ReceivingInstitute" type="schema-common:T_Institute"/>
+			<xsd:element name="ServiceId" type="schema-common:T_Service"/>
+			<xsd:element name="SettlementDate" type="schema-common:T_SettlementDate" />
+			<xsd:element name="Lac" type="schema-common:T_Lac" />
+			<xsd:element name="FileCreationDateTime" type="schema-common:T_Timestamp" />
+			<xsd:element name="MessageId" type="schema-common:T_MsgId" />
+			<xsd:element name="AccountOwnerBIC" type="schema-common:T_BICIdentifier" />
+			<xsd:element name="OpeningBalance" type="schema-common:ActiveAmount" />
+			<xsd:element name="OpeningBalanceSide" type="schema-common:T_Side" />
+			<xsd:element name="ClosingBalance" type="schema-common:ActiveAmount" />
+			<xsd:element name="ClosingBalanceSide" type="schema-common:T_Side" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="TipsReport">
+		<xsd:sequence>
+			<xsd:element name="MessageId" type="schema-common:T_MsgId" />
+			<xsd:element name="MessageCreationDateTime" type="schema-common:T_Timestamp" />
+			<xsd:element name="ReportName" type="schema-common:T_MsgId"/>
+			<xsd:element name="ReportCreationDateTime" type="schema-common:T_Timestamp" />
+			<xsd:element name="AccountId" type="schema-common:RestrictedFINX2Max34Text"/>
+			<xsd:element name="AccountCurrency" type="schema-common:ActiveCurrencyCode"/>
+			<xsd:element name="AccountOwner" type="schema-common:T_BICIdentifier"/>
+			<xsd:element name="OpeningBalance" type="schema-common:ActiveAmount" />
+			<xsd:element name="OpeningBalanceCurrency" type="schema-common:ActiveCurrencyCode" />
+			<xsd:element name="OpeningBalanceSide" type="schema-common:T_Side" />
+			<xsd:element name="OpeningBalanceDate" type="schema-common:T_SettlementDate" />
+			<xsd:element name="ClosingBalance" type="schema-common:ActiveAmount" />
+			<xsd:element name="ClosingBalanceCurrency" type="schema-common:ActiveCurrencyCode" />
+			<xsd:element name="ClosingBalanceSide" type="schema-common:T_Side" />
+			<xsd:element name="ClosingBalanceDate" type="schema-common:T_SettlementDate" />
+			<xsd:element name="TotalCredit" type="schema-common:ActiveAmount" />
+			<xsd:element name="TotalDebit" type="schema-common:ActiveAmount" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="TipsPayment">
+		<xsd:sequence>
+			<xsd:element name="EntryReference" type="schema-common:RestrictedFINX2Max35Text"/>
+			<xsd:element name="SettlementDateTime" type="schema-common:T_Timestamp" />
+			<xsd:element name="PaymentAmount" type="schema-common:ActiveAmount" />
+			<xsd:element name="Currency" type="schema-common:ActiveCurrencyCode"/>
+			<xsd:element name="Status" type="schema-common:T_Status"/>
+			<xsd:element name="Side" type="schema-common:T_Side" />
+			<xsd:element name="TransactionCode" type="schema-common:T_TransactionCode"/>
+			<xsd:element name="TransactionCodeFamily" type="schema-common:T_TransactionCodeFamily"/>
+			<xsd:element name="Debitor" type="schema-common:T_Institute"/>
+			<xsd:element name="Creditor" type="schema-common:T_Institute"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

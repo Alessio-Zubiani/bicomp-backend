@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+        targetNamespace="http://schema.data.common.ws.popso.it/v11"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:tns="http://schema.data.common.ws.popso.it/v11"
+        xmlns:tipi-testata="http://schema.tipi.testata.common.ws.popso.it/v11"
+        xmlns:tipi-comuni="http://schema.data.common.ws.popso.it/v11"
+        elementFormDefault="qualified">
+
+    <xsd:import schemaLocation="../TipiTestata_v11.0/TipiTestataSchema_v11.0.xsd"
+                namespace="http://schema.tipi.testata.common.ws.popso.it/v11"/>
+
+    <xsd:include schemaLocation="TipiComuniBaseSchema_v11.0.xsd"/>
+    <xsd:include schemaLocation="TipiComuniAnagrafeSchema_v11.0.xsd"/>
+    <xsd:include schemaLocation="TipiComuniContiSchema_v11.0.xsd"/>
+
+    <xsd:complexType name="DettaglioConto">
+        <xsd:sequence>
+            <xsd:element name="statoRapporto" nillable="true" type="tns:StatoRapporto"/>
+            <xsd:element name="anagrafica" nillable="true" type="tns:Anagrafica"/>
+            <xsd:element name="listaBlocchiRapporto" type="tns:ListaBlocchiRapporto" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="StatoRapporto">
+        <xsd:sequence>
+            <xsd:element name="saldi" type="tns:SaldoRapporto" nillable="true"/>
+            <xsd:element name="fidi" type="tns:FidoRapporto" nillable="true"/>
+            <xsd:element name="indicatori" type="tns:IndicatoreRapporto" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Anagrafica">
+        <xsd:sequence>
+            <xsd:element name="indirizzo" type="tns:Indirizzo" nillable="true"/>
+            <xsd:element name="NDG" type="tipi-testata:Ndg" nillable="true"/>
+            <xsd:element name="intestazione" type="tipi-testata:StringaNonVuota" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListaTotalizzatori">
+        <xsd:sequence>
+            <xsd:element name="totalizzatore" type="tns:Totalizzatore" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Totalizzatore">
+        <xsd:sequence>
+            <xsd:element name="codiceFiliale" type="tipi-testata:CodiceFiliale"/>
+            <xsd:element name="voce" type="tipi-testata:StringaNonVuota" nillable="true"/>
+            <xsd:element name="causale" type="tipi-testata:StringaNonVuota" nillable="true"/>
+            <xsd:element name="importo" type="tipi-comuni:Importo"/>
+            <xsd:element name="segno" type="tns:Segno"/>
+            <xsd:element name="divisa" type="tipi-testata:StringaNonVuota" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="Segno">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="D"/>
+            <xsd:enumeration value="A"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="MovimentiContabili">
+        <xsd:sequence>
+            <xsd:element name="totale" type="tns:MovimentoContabile"/>
+            <xsd:element name="listaMovimenti" type="tns:ListaMovimentiContabili"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ListaMovimentiContabili">
+        <xsd:sequence>
+            <xsd:element name="movimentoContabile" type="tns:MovimentoContabile" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="MovimentoContabile">
+        <xsd:sequence>
+            <xsd:element name="causale" type="tipi-testata:StringaNonVuota" nillable="true"/>
+            <xsd:element name="codiceDivisa" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="importo" type="tipi-comuni:Importo"/>
+            <xsd:element name="segno" type="tns:Segno" nillable="true"/>
+            <xsd:element name="dataValuta" type="xsd:date" nillable="true"/>
+            <xsd:element name="dataValutaDisponibile" type="xsd:date" nillable="true"/>
+            <xsd:element name="riferimento" type="tipi-testata:StringaNonVuota" nillable="true"/>
+            <xsd:element name="tipoRiferimento" type="tipi-testata:StringaNonVuota" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Sbilancio">
+        <xsd:sequence>
+            <xsd:element name="codiceTipoValore" type="xsd:string"/>
+            <xsd:element name="codiceDivisa" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="importo" type="tipi-comuni:Importo"/>
+            <xsd:element name="filialeNegoziazione" type="tipi-testata:StringaNonVuota"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="SaldoRapporto">
+        <xsd:sequence>
+            <xsd:element name="divisa" type="tipi-comuni:Divisa" nillable="true"/>
+            <xsd:element name="saldoContabile" type="tipi-comuni:Importo"/>
+            <xsd:element name="saldoDisponibile" type="tipi-comuni:Importo"/>
+            <xsd:element name="saldoLiquido" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="sconfino" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="saldoLibretto" type="tipi-comuni:Importo" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="FidoRapporto">
+        <xsd:sequence>
+            <xsd:element name="totFidoOperativo" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="fidoDia" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="fidoSbf" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="fidoPrm" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="fidoSbfai" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="fidoRotativi" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="fidoEsteso" type="tipi-comuni:Importo" nillable="true"/>
+            <xsd:element name="fidoTemporaneo" type="tipi-comuni:Importo" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="IndicatoreRapporto">
+        <xsd:sequence>
+            <xsd:element name="indicatoreBlocchi" type="xsd:boolean" nillable="true"/>
+            <xsd:element name="indicatoreNote" type="xsd:boolean" nillable="true"/>
+            <xsd:element name="indicatoreFirme" type="xsd:boolean" nillable="true"/>
+            <xsd:element name="indicatoreSostituzioneLibretto" type="xsd:boolean" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DatiSportelloPagamento">
+        <xsd:sequence>
+            <xsd:element name="descrizioneFilialeContabile" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="numeroRelazione" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="codiceCassa" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="dataContabile" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="numProgressivoLocale" type="tipi-testata:StringaNonVuota"/>
+            <xsd:element name="anagraficaEsecutore" type="tipi-testata:StringaNonVuota"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DatiSportelloAnnullo">
+        <xsd:sequence>
+            <xsd:element name="numeroRelazione" type="tipi-testata:StringaNonVuota" />
+            <xsd:element name="codiceCassa" type="tipi-testata:StringaNonVuota" />
+            <xsd:element name="numProgressivoLocale" type="tipi-testata:StringaNonVuota" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="Destinazione">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="FILIALE"/>
+            <xsd:enumeration value="CUP"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="ListaBlocchiRapporto">
+        <xsd:sequence>
+            <xsd:element name="bloccoRapporto" type="tns:BloccoRapporto" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="BloccoRapporto">
+        <xsd:sequence>
+            <xsd:element name="id" type="tipi-testata:StringaNonVuota" nillable="true"/>
+            <xsd:element name="descrizione" type="tipi-testata:StringaNonVuota" nillable="true"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+</xsd:schema>

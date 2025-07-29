@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+					name="BicompServiceLettura_v1" 
+					targetNamespace="http://lettura.bicomp.ws.popso.it/v1" 
+					xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+					xmlns:tns="http://lettura.bicomp.ws.popso.it/v1" 
+					xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+					xmlns:default-schema="http://schema.fault.testata.common.ws.popso.it/v11" 
+					xmlns:bicomp-schema="http://schema.lettura.bicomp.ws.popso.it/v1">					
+	
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://lettura.bicomp.ws.popso.it/v1">
+			<xsd:import namespace="http://schema.fault.testata.common.ws.popso.it/v11"
+				schemaLocation="schema/TipiTestata_v11.0/fault/FaultSchema_v11.0.xsd" />
+			<xsd:import namespace="http://schema.lettura.bicomp.ws.popso.it/v1"
+				schemaLocation="schema/BicompServiceLetturaSchema_v1.0.xsd" />
+		</xsd:schema>
+	</wsdl:types>
+	
+	
+	<!-- Fault -->
+	<wsdl:message name="systemFaultMsg">
+		<wsdl:part name="systemFault" element="default-schema:systemFault" />
+	</wsdl:message>
+	<wsdl:message name="inputFaultMsg">
+		<wsdl:part name="inputFault" element="default-schema:inputFault" />
+	</wsdl:message>
+	<wsdl:message name="applicationFaultMsg">
+		<wsdl:part name="applicationFault" element="default-schema:applicationFault" />
+	</wsdl:message>
+	<wsdl:message name="servizioNonDisponibileFaultMsg">
+		<wsdl:part name="servizioNonDisponibileFault" element="default-schema:servizioNonDisponibileFault" />
+	</wsdl:message>
+	<wsdl:message name="datiTestataFaultMsg">
+		<wsdl:part name="datiTestataFault" element="default-schema:datiTestataFault" />
+	</wsdl:message>
+
+
+	<!-- Saldi CGS messages -->
+	<wsdl:message name="saldiCgsReadRequestMsg">
+		<wsdl:part element="bicomp-schema:saldiCgsReadRequest" name="saldiCgsReadRequest" />
+	</wsdl:message>
+	<wsdl:message name="saldiCgsReadResponseMsg">
+		<wsdl:part element="bicomp-schema:saldiCgsReadResponse" name="saldiCgsReadResponse" />
+	</wsdl:message>
+	
+	<!-- Saldi TIPS messages -->
+	<wsdl:message name="saldiTipsReadRequestMsg">
+		<wsdl:part element="bicomp-schema:saldiTipsReadRequest" name="saldiTipsReadRequest" />
+	</wsdl:message>
+	<wsdl:message name="saldiTipsReadResponseMsg">
+		<wsdl:part element="bicomp-schema:saldiTipsReadResponse" name="saldiTipsReadResponse" />
+	</wsdl:message>
+	
+	<!-- Ultimo saldo CGS messages -->
+	<wsdl:message name="ultimoSaldoCgsReadRequestMsg">
+		<wsdl:part element="bicomp-schema:ultimoSaldoCgsReadRequest" name="ultimoSaldoCgsReadRequest" />
+	</wsdl:message>
+	<wsdl:message name="ultimoSaldoCgsReadResponseMsg">
+		<wsdl:part element="bicomp-schema:ultimoSaldoCgsReadResponse" name="ultimoSaldoCgsReadResponse" />
+	</wsdl:message>
+	
+	<!-- Ultimo pagamento TIPS messages -->
+	<wsdl:message name="ultimoPagamentoTipsReadRequestMsg">
+		<wsdl:part element="bicomp-schema:ultimoPagamentoTipsReadRequest" name="ultimoPagamentoTipsReadRequest" />
+	</wsdl:message>
+	<wsdl:message name="ultimoPagamentoTipsReadResponseMsg">
+		<wsdl:part element="bicomp-schema:ultimoPagamentoTipsReadResponse" name="ultimoPagamentoTipsReadResponse" />
+	</wsdl:message>
+
+
+	<!-- PortType -->
+	<wsdl:portType name="BicompServiceLetturaPortType_v1">
+		<wsdl:operation name="saldiCgsRead">
+			<wsdl:input name="saldiCgsReadRequest" message="tns:saldiCgsReadRequestMsg" />
+			<wsdl:output name="saldiCgsReadResponse" message="tns:saldiCgsReadResponseMsg" />
+			
+			<wsdl:fault name="applicationFault" message="tns:applicationFaultMsg" />
+			<wsdl:fault name="systemFault" message="tns:systemFaultMsg" />
+			<wsdl:fault name="datiTestataFault" message="tns:datiTestataFaultMsg" />
+			<wsdl:fault name="inputFault" message="tns:inputFaultMsg" />
+			<wsdl:fault name="servizioNonDisponibileFault" message="tns:servizioNonDisponibileFaultMsg" />
+		</wsdl:operation>
+		<wsdl:operation name="saldiTipsRead">
+			<wsdl:input name="saldiTipsReadRequest" message="tns:saldiTipsReadRequestMsg" />
+			<wsdl:output name="saldiTipsReadResponse" message="tns:saldiTipsReadResponseMsg" />
+			
+			<wsdl:fault name="applicationFault" message="tns:applicationFaultMsg" />
+			<wsdl:fault name="systemFault" message="tns:systemFaultMsg" />
+			<wsdl:fault name="datiTestataFault" message="tns:datiTestataFaultMsg" />
+			<wsdl:fault name="inputFault" message="tns:inputFaultMsg" />
+			<wsdl:fault name="servizioNonDisponibileFault" message="tns:servizioNonDisponibileFaultMsg" />
+		</wsdl:operation>
+		<wsdl:operation name="ultimoSaldoCgsRead">
+			<wsdl:input name="ultimoSaldoCgsReadRequest" message="tns:ultimoSaldoCgsReadRequestMsg" />
+			<wsdl:output name="ultimoSaldoCgsReadResponse" message="tns:ultimoSaldoCgsReadResponseMsg" />
+			
+			<wsdl:fault name="applicationFault" message="tns:applicationFaultMsg" />
+			<wsdl:fault name="systemFault" message="tns:systemFaultMsg" />
+			<wsdl:fault name="datiTestataFault" message="tns:datiTestataFaultMsg" />
+			<wsdl:fault name="inputFault" message="tns:inputFaultMsg" />
+			<wsdl:fault name="servizioNonDisponibileFault" message="tns:servizioNonDisponibileFaultMsg" />
+		</wsdl:operation>
+		<wsdl:operation name="ultimoPagamentoTipsRead">
+			<wsdl:input name="ultimoPagamentoTipsReadRequest" message="tns:ultimoPagamentoTipsReadRequestMsg" />
+			<wsdl:output name="ultimoPagamentoTipsReadResponse" message="tns:ultimoPagamentoTipsReadResponseMsg" />
+			
+			<wsdl:fault name="applicationFault" message="tns:applicationFaultMsg" />
+			<wsdl:fault name="systemFault" message="tns:systemFaultMsg" />
+			<wsdl:fault name="datiTestataFault" message="tns:datiTestataFaultMsg" />
+			<wsdl:fault name="inputFault" message="tns:inputFaultMsg" />
+			<wsdl:fault name="servizioNonDisponibileFault" message="tns:servizioNonDisponibileFaultMsg" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<wsdl:binding name="BicompServiceLetturaBinding_v1" type="tns:BicompServiceLetturaPortType_v1">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="saldiCgsRead">
+			<soap:operation soapAction="" />
+			<wsdl:input name="saldiCgsReadRequest">
+				<soap:body parts="saldiCgsReadRequest" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="saldiCgsReadResponse">
+				<soap:body parts="saldiCgsReadResponse" use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="applicationFault">
+				<soap:fault name="applicationFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="systemFault">
+				<soap:fault name="systemFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="datiTestataFault">
+				<soap:fault name="datiTestataFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="inputFault">
+				<soap:fault name="inputFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="servizioNonDisponibileFault">
+				<soap:fault name="servizioNonDisponibileFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="saldiTipsRead">
+			<soap:operation soapAction="" />
+			<wsdl:input name="saldiTipsReadRequest">
+				<soap:body parts="saldiTipsReadRequest" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="saldiTipsReadResponse">
+				<soap:body parts="saldiTipsReadResponse" use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="applicationFault">
+				<soap:fault name="applicationFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="systemFault">
+				<soap:fault name="systemFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="datiTestataFault">
+				<soap:fault name="datiTestataFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="inputFault">
+				<soap:fault name="inputFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="servizioNonDisponibileFault">
+				<soap:fault name="servizioNonDisponibileFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="ultimoSaldoCgsRead">
+			<soap:operation soapAction="" />
+			<wsdl:input name="ultimoSaldoCgsReadRequest">
+				<soap:body parts="ultimoSaldoCgsReadRequest" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="ultimoSaldoCgsReadResponse">
+				<soap:body parts="ultimoSaldoCgsReadResponse" use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="applicationFault">
+				<soap:fault name="applicationFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="systemFault">
+				<soap:fault name="systemFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="datiTestataFault">
+				<soap:fault name="datiTestataFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="inputFault">
+				<soap:fault name="inputFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="servizioNonDisponibileFault">
+				<soap:fault name="servizioNonDisponibileFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+		
+		<wsdl:operation name="ultimoPagamentoTipsRead">
+			<soap:operation soapAction="" />
+			<wsdl:input name="ultimoPagamentoTipsReadRequest">
+				<soap:body parts="ultimoPagamentoTipsReadRequest" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="ultimoPagamentoTipsReadResponse">
+				<soap:body parts="ultimoPagamentoTipsReadResponse" use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="applicationFault">
+				<soap:fault name="applicationFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="systemFault">
+				<soap:fault name="systemFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="datiTestataFault">
+				<soap:fault name="datiTestataFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="inputFault">
+				<soap:fault name="inputFault" use="literal" />
+			</wsdl:fault>
+			<wsdl:fault name="servizioNonDisponibileFault">
+				<soap:fault name="servizioNonDisponibileFault" use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+
+
+	<wsdl:service name="BicompServiceLettura_v1">
+		<wsdl:documentation>Bicomp service Lettura</wsdl:documentation>
+		<wsdl:port binding="tns:BicompServiceLetturaBinding_v1" name="BicompServiceLetturaPortType_v1">
+			<soap:address location="http://bicompdev.popso.it/bicomp-backend/BicompService_v1/lettura/BicompLettura.ws" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

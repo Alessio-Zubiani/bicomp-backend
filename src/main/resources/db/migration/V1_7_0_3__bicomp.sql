@@ -1,0 +1,4 @@
+-- Removing PASSWORD field from USERS table
+
+ALTER TABLE "BICOMP"."USERS"
+DROP COLUMN "PASSWORD";

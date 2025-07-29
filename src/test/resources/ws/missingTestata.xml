@@ -1,0 +1,13 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://schema.lettura.bicomp.ws.popso.it/v1" xmlns:v11="http://schema.testata.common.ws.popso.it/v11" xmlns:v111="http://schema.tipi.testata.common.ws.popso.it/v11">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <v1:saldiCgsReadRequest>
+         <v1:saldiCgsReadRequestData>
+            <v1:CorrelationKey>123abc</v1:CorrelationKey>
+            <v1:CreationTimestamp>2023-12-05T00:00:00.000+01:00</v1:CreationTimestamp>
+            <v1:AccountOwnerBIC>POSOIT22XXX</v1:AccountOwnerBIC>
+            <v1:SettlementDate>2023-12-06</v1:SettlementDate>
+         </v1:saldiCgsReadRequestData>
+      </v1:saldiCgsReadRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
